@@ -1,4 +1,4 @@
-module wallet-generator
+module github.com/exorich-lab/EVM-GEN/v1
 
 go 1.21
 

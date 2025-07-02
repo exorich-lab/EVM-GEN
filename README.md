@@ -32,6 +32,8 @@ A simple command-line tool for generating Ethereum-compatible (EVM) wallets usin
 
 ### 🔧 Option 2: Build from Source
 
+### Latest Version: v1.0.0
+
 1. Clone the repository:
    ```bash
    git clone https://github.com/exorich-lab/EVM-GEN.git
