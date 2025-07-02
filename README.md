@@ -1,38 +1,81 @@
 # 🔐 EVM Wallet Generator
 
+[![Go Reference](https://pkg.go.dev/badge/github.com/exorich-lab/EVM-GEN/v1.svg)](https://pkg.go.dev/github.com/exorich-lab/EVM-GEN/v1)
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-blue?style=for-the-badge&logo=github)](https://github.com/exorich-lab/EVM-GEN)
+[![Go Report Card](https://goreportcard.com/badge/github.com/exorich-lab/EVM-GEN)](https://goreportcard.com/report/github.com/exorich-lab/EVM-GEN)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-blue?style=for-the-badge&logo=github)](https://github.com/exorich-lab/EVM-GEN)
 
 
-A simple command-line tool for generating Ethereum-compatible (EVM) wallets using BIP39 mnemonics and BIP44 derivation paths. The tool generates a mnemonic phrase and derives an Ethereum address along with its private key.
+A simple and secure tool for generating Ethereum-compatible (EVM) wallets using BIP39 mnemonics and BIP44 derivation paths. The tool can be used both as a Go module in your applications or as a standalone CLI tool.
 
 ## ✨ Features
 
-- Generates a 24-word BIP39 mnemonic phrase
-- Derives an Ethereum address using the standard derivation path (m/44'/60'/0'/0/0)
-- Saves wallet information to a timestamped text file
-- Displays wallet details in the console
+- Generate secure Ethereum wallets with 24-word mnemonic phrases
+- Derive Ethereum addresses using BIP44 standard derivation path (m/44'/60'/0'/0/0)
+- Export wallet information to encrypted files
+- Use as a Go module in your projects or as a standalone CLI tool
 - Cross-platform compatibility (Windows, macOS, Linux)
+- Open source and MIT licensed
 
 ## 📋 Prerequisites
 
-- Go 1.16 or later (only required if building from source)
+- Go 1.16 or later (only required if building from source or using as a module)
 - Git (for cloning the repository)
+- For CLI usage, Go 1.16+ is only needed for installation
 
-## ⚙️ Installation
+## 🚀 Quick Start
 
-### 📥 Option 1: Download Pre-built Binary
+### Option 1: Use as a Go Module
 
-1. Download the latest release from the [Releases](https://github.com/yourusername/evm-wallet-generator/releases) page
-2. For Windows, download `evm-wallet-generator-windows-amd64.exe`
-3. Rename it to `evm-wallet-generator` (or `evm-wallet-generator.exe` on Windows)
-4. Make it executable (on Unix-like systems):
-   ```bash
-   chmod +x evm-wallet-generator
-   ```
+```bash
+go get github.com/exorich-lab/EVM-GEN/v1@latest
+```
 
-### 🔧 Option 2: Build from Source
+Example usage in your Go code:
 
-### Latest Version: v1.0.0
+```go
+package main
+
+import (
+	"fmt"
+	"log"
+
+	"github.com/exorich-lab/EVM-GEN/v1/pkg/evmwallet"
+)
+
+func main() {
+	// Generate a new wallet
+	wallet, err := evmwallet.GenerateWallet()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Print wallet information
+	fmt.Println("Address:", wallet.Address)
+	fmt.Println("Mnemonic:", wallet.Mnemonic)
+	
+	// Save to file
+	filename, err := wallet.SaveToFile()
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("Wallet saved to:", filename)
+}
+```
+
+### Option 2: Install as a CLI Tool
+
+```bash
+# Install the latest version
+go install github.com/exorich-lab/EVM-GEN/v1/cmd/evmwallet@latest
+
+# Run the tool
+evmwallet
+```
+
+### Option 3: Build from Source
 
 1. Clone the repository:
    ```bash
@@ -40,33 +83,29 @@ A simple command-line tool for generating Ethereum-compatible (EVM) wallets usin
    cd EVM-GEN
    ```
 
-2. Build the binary:
+2. Build and install:
    ```bash
-   go build -o evm-wallet-generator
+   go install ./cmd/evmwallet
    ```
 
-## 🚀 Usage
+3. Run the tool:
+   ```bash
+   evmwallet
+   ```
 
-### 💻 Basic Usage
+## 💻 CLI Usage
 
-Run the executable:
+Generate a new wallet:
 
 ```bash
-./evm-wallet-generator
+evmwallet
 ```
 
-On Windows:
-```cmd
-evm-wallet-generator.exe
-```
-
-### 📊 Output
-
-The program will:
+This will:
 1. Generate a new 24-word mnemonic
 2. Derive an Ethereum address and private key
-3. Display the information in the console
-4. Save the details to a file named `wallet_<timestamp>.txt` in the current directory
+3. Save the details to a timestamped file in the `wallets` directory
+4. Display the information in the console
 
 ### 📝 Example Output
 
